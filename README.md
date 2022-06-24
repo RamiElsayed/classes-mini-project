@@ -1,1 +1,1 @@
-# classes-mini-project
+# guessing-words-mini-project
