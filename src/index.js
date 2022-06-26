@@ -1,4 +1,4 @@
-const Word = require('./../lib/Word');
+const Word = require('./lib/Word');
 
 const word = new Word('Foo Bar');
 
