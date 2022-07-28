@@ -13,6 +13,12 @@ class Letter {
         return '_';
       }
     }
+
+    verifyLetter(character) {
+      if (character.toLowerCase() === this.character.toLowerCase()) {
+        this.isVisible = true;
+      }
+    }
   }
   
   module.exports = Letter;

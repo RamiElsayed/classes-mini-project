@@ -1,4 +1,7 @@
+const inquirer = require("inquirer");
+
 const Letter = require("./Letter");
+const { isRequired } = require("../../validate");
 
 class Word {
   constructor(word) {
@@ -8,14 +11,40 @@ class Word {
 
       return letter;
     });
+    console.log(word);
   }
 
   displayWord() {
     const wordToDisplay = this.letters
-    .map((letter) => letter.displayLetter())
-    .join('');
+      .map((letter) => letter.displayLetter())
+      .join(" ");
 
-    console.log(wordToDisplay);
+    console.log(`${wordToDisplay}\n\n`);
+  }
+
+  async guessCharacter() {
+    const question = {
+      type: "input",
+      message: " Please enter a character",
+      name: "character",
+      validate: isRequired,
+    };
+    const { character } = await inquirer.prompt(question);
+
+    if ([...this.currentWord.toLowerCase()].includes(character.toLowerCase())) {
+      this.letters.forEach((letter) => {
+        letter.verifyLetter(character);
+      });
+      console.log(`CORRECT - ${character}`);
+      return true;
+    } else {
+      console.log(`INCORRECT - ${character}`);
+      return false;
+    }
+  }
+
+  isComplete() {
+    return this.letters.every((letter) => letter.isVisible);
   }
 }
 

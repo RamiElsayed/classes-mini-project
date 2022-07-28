@@ -1,5 +1,18 @@
-const Word = require('./lib/Word');
+const inquirer = require('inquirer');
+const Game = require('./lib/Game');
 
-const word = new Word('Foo Bar');
+const init = async () => {
+    const question = {
+        type: 'input',
+        message: 'Enter username:',
+        name: 'username',
+        default: 'Player 1'
+    }
 
-console.log(word);
+    const {username} = await inquirer.prompt(question);
+    const game = new Game(username);
+    
+    await game.start();
+}
+
+init();
